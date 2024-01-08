@@ -710,7 +710,7 @@ bool controlGuide(){
         ss.push_back('-');
     }
     cout << ss << "User Guide" << ss ;
-    cout << endl << "press Enter to view the visualizer or -1 to exit the program " << endl;
+    cout << endl << "Press Enter to view the visualizer or -1 to exit the program " << endl;
     cout << "After entering the visualizer :" << endl;
     cout << "Press 0 to generate a random array of integers" << endl;
     cout << "press 1 to perform bubble sort on the generated array" << endl;
