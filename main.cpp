@@ -705,23 +705,28 @@ void executeCommand() {
 }
 
 bool controlGuide(){
-    string ss;
-    for(int i=0; i<30; i++){
-        ss.push_back('-');
+    string sd,sp;
+    for(int i=0;i<20;i++){
+        sp.push_back(' ');
     }
-    cout << ss << "User Guide" << ss ;
+    for(int i=0; i<30; i++){
+        sd.push_back('-');
+    }
+    cout << endl << sp << sd << "User Guide" << sd ;
     cout << endl << "Press Enter to view the visualizer or -1 to exit the program " << endl;
-    cout << "After entering the visualizer :" << endl;
-    cout << "Press 0 to generate a random array of integers" << endl;
-    cout << "press 1 to perform bubble sort on the generated array" << endl;
-    cout << "press 2 to perform insertion sort on the generated array" << endl;
-    cout << "press 3 to perform selection sort on the generated array" << endl;
-    cout << "press 4 to perform merge sort on the generated array" << endl;
-    cout << "press 5 to perform quick sort on the generated array" << endl;
-    cout << "press 6 to perform heap sort on the generated array" << endl;
-    cout << "press 7 to perform counting sort on the generated array" << endl;
-    cout << "press 8 to perform shell sort on the generated array" << endl;
-    cout << "press e to exit the visualizer" << endl;
+    cout << "After entering the visualizer: " << endl;
+    cout << "Press 0 to generate a new array of integers" << endl;
+    cout << "Or" << endl;
+    cout << "To perfom a sorting operation on the generated array, press any of the following numbers as mentioned below: " << endl;
+    cout << " 1 for Bubble Sort" << endl;
+    cout << " 2 for Insertion Sort" << endl;
+    cout << " 3 for Selection Sort" << endl;
+    cout << " 4 for Merge Sort" << endl;
+    cout << " 5 for Quick Sort" << endl;
+    cout << " 6 for Heap Sort" << endl;
+    cout << " 7 for Counting Sort" << endl;
+    cout << " 8 for Shell Sort" << endl;
+    cout << endl << "Press e to exit the visualizer" << endl;
     
 
     string s;
@@ -733,20 +738,23 @@ bool controlGuide(){
         }
         else if(s == "-1") return false;
 
-        else cout<< "please give a valid command" << endl;
+        else cout<< endl << "Please give a valid command" << endl;
     }
 }
 
 bool introMessages(){
-    string s;
+    string sp,ss;
+    for(int i=0;i<20;i++){
+        sp.push_back(' ');
+    }
     for(int i=0; i<30; i++){
-        s.push_back('*');
+        ss.push_back('*');
     }
 
-    cout << s <<"WELCOME TO SORTING ALGORITHM VISUALIZER" << s << endl;
+    cout << endl << sp << ss << "WELCOME TO SORTING ALGORITHM VISUALIZER" << ss << endl;
 
     cout << endl << "Press Enter to continue or -1 to exit the program: ";
-    
+    string s;
     while(true){
         getline(cin,s);
         if(s.empty()){
@@ -768,7 +776,7 @@ int main(int args, char* argc[]){
         }
 
         else{
-            cout << "Exiting...Thanks for using the visualizer" << endl;
+            cout << endl << "Exiting...Thanks for using the visualizer" << endl;
             break;
         }
     }
