@@ -4,11 +4,11 @@
 
 using namespace std;
 
-const int arrSize = 100;
-const int rectWidth = 10;
+const int arrSize = 30;
+const int rectWidth = 30;
 const int screenHeight = 500;
 const int screenWidth = arrSize*rectWidth;
-const int delayPeriod = 50;
+const int delayPeriod = 150;
 
 int moves = 0;
 bool finished = false;
@@ -20,6 +20,17 @@ vector<int>storedArray(arrSize);
 SDL_Window* window = nullptr;
 SDL_Renderer* renderer = nullptr;
 SDL_Event global_ev;
+
+void quitPress(){
+    while(SDL_PollEvent(&global_ev) != 0){
+        if(global_ev.type == SDL_QUIT || (global_ev.type == SDL_KEYDOWN && global_ev.key.keysym.sym == SDLK_e)){
+            close = true;
+            throw exception();
+        }
+    }
+
+    return;
+}
 
 void quit(){
     SDL_DestroyRenderer(renderer);
@@ -81,13 +92,11 @@ void bubbleSort()
         for(int j=0; j<arrSize-1-i; j++)
         {
 
-             while(SDL_PollEvent(&global_ev) != 0){
-                if(global_ev.type == SDL_QUIT || (global_ev.type == SDL_KEYDOWN && global_ev.key.keysym.sym == SDLK_e)){
-                    close = true;
-                    return;
-                }
-             }
+            quitPress();
+
             moves++;
+            sortVisualizer(j,j+1);
+            SDL_Delay(delayPeriod);
             if(storedArray[j+1]<storedArray[j])
             {
                 swap(storedArray[j],storedArray[j+1]);
@@ -104,16 +113,11 @@ void bubbleSort()
 
 void insertionSort(){
     for(int i=1; i<arrSize; i++){
-        int j= i-1;              // i = index 1, j = index 0
+        int j= i-1;
         int temp = storedArray[i];
 
         while(j>=0 && storedArray[j]>temp){
-            while(SDL_PollEvent(&global_ev) != 0){
-                if(global_ev.type == SDL_QUIT || (global_ev.type == SDL_KEYDOWN && global_ev.key.keysym.sym == SDLK_e)){
-                    close = true;
-                    return;
-                }
-            }
+            quitPress();
             storedArray[j+1] = storedArray[j];
             j--;
 
@@ -127,13 +131,9 @@ void insertionSort(){
 
 int findLocation(int lowerBound){
     int location = lowerBound;
-    for(int i=lowerBound+1; i<arrSize;i++){
-        while(SDL_PollEvent(&global_ev) != 0){
-            if(global_ev.type == SDL_QUIT || (global_ev.type == SDL_KEYDOWN && global_ev.key.keysym.sym == SDLK_e)){
-                close = true;
-                return -1;
-            }
-        }
+    for(int i=lowerBound+1; i<arrSize;i++){       
+        quitPress();
+
         if(storedArray[location]>storedArray[i]){
             location = i;
             sortVisualizer(lowerBound,location);
@@ -148,7 +148,7 @@ int findLocation(int lowerBound){
 void selectionSort(){    
     for(int i=0;i<arrSize-1; i++){
         int minNumLocation = findLocation(i);
-        if(minNumLocation == -1) return;
+        //if(minNumLocation == -1) return;
         if(minNumLocation != i){
             swap(storedArray[minNumLocation], storedArray[i]);
         }
@@ -175,6 +175,7 @@ void merge(vector<int>&v, int left, int mid, int right) {
 	int i = 0, j = 0, k = 0;
 
 	while (i < leftSize && j < rightSize) {
+        quitPress();
 		if (tempArrayLeft[i] <= tempArrayRight[j]) {
 			tempArray[k] = tempArrayLeft[i];
 			sortVisualizer(left+i,mid+1+j);
@@ -194,6 +195,7 @@ void merge(vector<int>&v, int left, int mid, int right) {
 	}
 
 	while (i < leftSize) {
+        quitPress();
 		tempArray[k] = tempArrayLeft[i];
 		sortVisualizer(-1,left+i);
         SDL_Delay(delayPeriod);
@@ -203,6 +205,7 @@ void merge(vector<int>&v, int left, int mid, int right) {
 	}
 
 	while (j < rightSize) {
+        quitPress();
 		tempArray[k] = tempArrayRight[j];
 		sortVisualizer(-1,mid+1+j);
         SDL_Delay(delayPeriod);
@@ -214,6 +217,7 @@ void merge(vector<int>&v, int left, int mid, int right) {
 	int tempInd = 0;
 
 	for (int ind = left; ind <= right; ind++, tempInd++) {
+        quitPress();
 		v[ind] = tempArray[tempInd];
 		sortVisualizer(ind);
 		SDL_Delay(delayPeriod);
@@ -223,6 +227,7 @@ void merge(vector<int>&v, int left, int mid, int right) {
 
 void mergeSort(vector<int>&v, int startIndex, int endIndex) {
 	if (startIndex < endIndex) {
+        quitPress();
 		int midIndex = startIndex + (endIndex - startIndex) / 2;
 
 		mergeSort(v, startIndex, midIndex);
@@ -236,16 +241,19 @@ void mergeSort(vector<int>&v, int startIndex, int endIndex) {
 
 int partition(vector<int>&v, int left, int right){
     int pivot = v[left];
-    int i=left, j = right; // i = pivot index, j = rightmost index
+    int i=left, j = right;
 
     while(i<j){
+        quitPress();
         while(i<j && v[i]<=pivot){
+            quitPress();
             i++;
             sortVisualizer(i,j);
             SDL_Delay(delayPeriod);
             moves++;
         }
         while(v[j]>pivot){
+            quitPress();
             j--;
             sortVisualizer(i,j);
             SDL_Delay(delayPeriod);
@@ -261,11 +269,12 @@ int partition(vector<int>&v, int left, int right){
     sortVisualizer(left,j);
     SDL_Delay(delayPeriod);
 
-    return j; // j = new pivot index
+    return j;
 }
 
 void quickSort(vector<int>&v, int start, int end) {
     if(start<end){
+        quitPress();
         int index = partition(v,start,end);
         quickSort(v, start, index-1);
         quickSort(v,index+1,end);
@@ -292,6 +301,7 @@ void heapify(vector<int>&v, int n, int i)
 		swap(v[i], v[largest]);
         sortVisualizer(i,largest);
         SDL_Delay(delayPeriod);
+        quitPress();
 		heapify(v, n, largest);
 	}
 
@@ -300,6 +310,7 @@ void heapify(vector<int>&v, int n, int i)
 void buildHeap()
 {
 	for (int i = arrSize / 2 - 1; i >= 0; i--) {
+        quitPress();
 		heapify(storedArray, arrSize, i);
 	}
 
@@ -307,6 +318,7 @@ void buildHeap()
 
 void heapSort()
 {
+    quitPress();
 	buildHeap();
     SDL_Delay(1000);
 	for (int i = arrSize - 1; i > 0; i--) {
@@ -315,19 +327,13 @@ void heapSort()
         SDL_Delay(delayPeriod);
 		heapify(storedArray, i, 0);
 	}
-
 }
 
 void countingSort() {
 	int mx = -1;
 
 	for (int i = 0; i < arrSize; i++) {
-        while(SDL_PollEvent(&global_ev) != 0){
-            if(global_ev.type == SDL_QUIT || (global_ev.type == SDL_KEYDOWN && global_ev.key.keysym.sym == SDLK_e)){
-                close = true;
-                return;
-            }
-        }
+        quitPress();
 		mx = max(mx, storedArray[i]);
 	}
 
@@ -336,36 +342,21 @@ void countingSort() {
 	vector<int>count(range);
 
 	for (int i = 0; i < arrSize; i++) {
-        while(SDL_PollEvent(&global_ev) != 0){
-            if(global_ev.type == SDL_QUIT || (global_ev.type == SDL_KEYDOWN && global_ev.key.keysym.sym == SDLK_e)){
-                close = true;
-                return;
-            }
-        }
+        quitPress();
 		count[storedArray[i]]++;
         sortVisualizer(i);
         SDL_Delay(delayPeriod);
 	}
 
 	for (int i = 1; i < count.size(); i++) {
-        while(SDL_PollEvent(&global_ev) != 0){
-            if(global_ev.type == SDL_QUIT || (global_ev.type == SDL_KEYDOWN && global_ev.key.keysym.sym == SDLK_e)){
-                close = true;
-                return;
-            }
-        }
+        quitPress();
 		count[i] += count[i - 1];
 	}
 
 	vector<int>output(arrSize);
 
 	for (int i = arrSize - 1; i >= 0; i--) {
-        while(SDL_PollEvent(&global_ev) != 0){
-            if(global_ev.type == SDL_QUIT || (global_ev.type == SDL_KEYDOWN && global_ev.key.keysym.sym == SDLK_e)){
-                close = true;
-                return;
-            }
-        }
+        quitPress();
 		output[count[storedArray[i]] - 1] = storedArray[i];
         sortVisualizer(count[storedArray[i]] - 1,i);
 		count[storedArray[i]]--;
@@ -373,12 +364,7 @@ void countingSort() {
 	}
 
 	for (int i = 0; i < arrSize; i++){
-        while(SDL_PollEvent(&global_ev) != 0){
-            if(global_ev.type == SDL_QUIT || (global_ev.type == SDL_KEYDOWN && global_ev.key.keysym.sym == SDLK_e)){
-                close = true;
-                return;
-            }
-        }
+        quitPress();
         storedArray[i] = output[i];
         sortVisualizer(i);
         SDL_Delay(delayPeriod);
@@ -387,23 +373,13 @@ void countingSort() {
 
 void shellSort() {
 	for (int gap = arrSize / 2; gap >= 1; gap /= 2) {
-        while(SDL_PollEvent(&global_ev) != 0){
-            if(global_ev.type == SDL_QUIT || (global_ev.type == SDL_KEYDOWN && global_ev.key.keysym.sym == SDLK_e)){
-                close = true;
-                return;
-            }
-        }
+        quitPress();
 		for (int i = gap; i < arrSize; i++) {
 			int temp = storedArray[i];
 			int j = i - gap;
 
 			while (j >= 0 && storedArray[j] > temp) {
-                while(SDL_PollEvent(&global_ev) != 0){
-                    if(global_ev.type == SDL_QUIT || (global_ev.type == SDL_KEYDOWN && global_ev.key.keysym.sym == SDLK_e)){
-                        close = true;
-                        return;
-                    }
-                }
+                quitPress();
                 moves++;
 				storedArray[j + gap] = storedArray[j];
 				sortVisualizer(j, j + gap);
@@ -542,12 +518,18 @@ void executeCommand() {
                             moves = 0;
 
                             time(&start);
-                            bubbleSort();
+                            
+                            try {
+                                bubbleSort();
+                            } catch(...) {
+                                cout << endl <<"Sorting process interrupted, Quitting...." << endl;
+                            }
+
                             time(&end);
 
                             finished = true;
 
-                            cout << "Bubble Sort Completed" << endl;
+                            if(!close) cout << "Bubble Sort Completed" << endl;
                             cout << "Time taken: " << (double)(end-start) << endl;
                             cout << "Total comparisons: " << moves << endl;
 
@@ -561,12 +543,18 @@ void executeCommand() {
                             moves = 0;
 
                             time(&start);
-                            insertionSort();
+                            
+                            try {
+                                insertionSort();
+                            } catch(...) {
+                                cout << endl <<"Sorting process interrupted, Quitting...." << endl;
+                            }
+
                             time(&end);
 
                             finished = true;
 
-                            cout << "Insertion Sort Completed" << endl;
+                            if(!close) cout << "Insertion Sort Completed" << endl;
                             cout << "Time taken: " << (double)(end-start) << endl;
                             cout << "Total comparisons: " << moves << endl;
 
@@ -581,12 +569,18 @@ void executeCommand() {
                             moves = 0;
 
                             time(&start);
-                            selectionSort();
+
+                            try {
+                                selectionSort();
+                            } catch(...) {
+                                cout << endl <<"Sorting process interrupted, Quitting...." << endl;
+                            }
+
                             time(&end);
 
                             finished = true;
 
-                            cout << "Selection Sort Completed" << endl;
+                            if(!close) cout << "Selection Sort Completed" << endl;
                             cout << "Time taken: " << (double)(end-start) << endl;
                             cout << "Total comparisons: " << moves << endl;
 
@@ -601,12 +595,18 @@ void executeCommand() {
                             moves = 0;
 
                             time(&start);
-                            mergeSort(storedArray, 0, arrSize-1);
+
+                            try {
+                                mergeSort(storedArray, 0, arrSize-1);
+                            } catch(...) {
+                                cout << endl <<"Sorting process interrupted, Quitting...." << endl;
+                            }
+
                             time(&end);
 
                             finished = true;
 
-                            cout << "Merge Sort Completed" << endl;
+                            if(!close) cout << "Merge Sort Completed" << endl;
                             cout << "Time taken: " << (double)(end-start) << endl;
                             cout << "Total comparisons: " << moves << endl;
 
@@ -621,12 +621,18 @@ void executeCommand() {
                             moves = 0;
 
                             time(&start);
-                            quickSort(storedArray, 0, arrSize-1);
+                            
+                            try {
+                                quickSort(storedArray, 0, arrSize-1);
+                            } catch(...) {
+                                cout << endl <<"Sorting process interrupted, Quitting...." << endl;
+                            }
+
                             time(&end);
 
                             finished = true;
 
-                            cout << "Quick Sort Completed" << endl;
+                            if(!close) cout << "Quick Sort Completed" << endl;
                             cout << "Time taken: " << (double)(end-start) << endl;
                             cout << "Total comparisons: " << moves << endl;
 
@@ -641,12 +647,18 @@ void executeCommand() {
                             moves = 0;
 
                             time(&start);
-                            heapSort();
+                            
+                            try {
+                                heapSort();
+                            } catch(...) {
+                                cout << endl <<"Sorting process interrupted, Quitting...." << endl;
+                            }
+
                             time(&end);
 
                             finished = true;
 
-                            cout << "Heap Sort Completed" << endl;
+                            if(!close) cout << "Heap Sort Completed" << endl;
                             cout << "Time taken: " << (double)(end-start) << endl;
                             cout << "Total comparisons: " << moves << endl;
 
@@ -660,12 +672,18 @@ void executeCommand() {
                             finished = false;
 
                             time(&start);
-                            countingSort();
+
+                            try {
+                                countingSort();
+                            } catch(...) {
+                                cout << endl <<"Sorting process interrupted, Quitting...." << endl;
+                            }
+
                             time(&end);
 
                             finished=true;
 
-                            cout << "Counting Sort Completed" << endl;
+                            if(!close) cout << "Counting Sort Completed" << endl;
                             cout << "Time taken: " << (double)(end-start) << endl;
                             cout<< "Total Comparisons: No comparisons required" << endl;
                             
@@ -680,12 +698,18 @@ void executeCommand() {
                             moves = 0;
                             
                             time(&start);
-                            shellSort();
+
+                            try {
+                                shellSort();
+                            } catch(...) {
+                                cout << endl <<"Sorting process interrupted, Quitting...." << endl;
+                            }
+                            
                             time(&end);
 
                             finished = true;
 
-                            cout << "Shell Sort Completed" << endl;
+                            if(!close) cout << "Shell Sort Completed" << endl;
                             cout << "Time taken: " << (double)(end - start) << endl;
                             cout << "Total Comparisons: " << moves << endl;
 
@@ -696,6 +720,7 @@ void executeCommand() {
 
                 if(close){
                     finished = false;
+                    cout << "Quit Event Detected, visualization process stopped" << endl << endl; 
                 }
             }
             sortVisualizer();
