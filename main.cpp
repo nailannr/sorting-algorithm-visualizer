@@ -104,7 +104,7 @@ void bubbleSort()
 
 void insertionSort(){
     for(int i=1; i<arrSize; i++){
-        int j= i-1;
+        int j= i-1;              // i = index 1, j = index 0
         int temp = storedArray[i];
 
         while(j>=0 && storedArray[j]>temp){
@@ -236,7 +236,7 @@ void mergeSort(vector<int>&v, int startIndex, int endIndex) {
 
 int partition(vector<int>&v, int left, int right){
     int pivot = v[left];
-    int i=left, j = right;
+    int i=left, j = right; // i = pivot index, j = rightmost index
 
     while(i<j){
         while(i<j && v[i]<=pivot){
@@ -261,7 +261,7 @@ int partition(vector<int>&v, int left, int right){
     sortVisualizer(left,j);
     SDL_Delay(delayPeriod);
 
-    return j;
+    return j; // j = new pivot index
 }
 
 void quickSort(vector<int>&v, int start, int end) {
