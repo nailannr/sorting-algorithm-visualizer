@@ -23,7 +23,7 @@ SDL_Event global_ev;
 
 void quitPress(){
     while(SDL_PollEvent(&global_ev) != 0){
-        if(global_ev.type == SDL_QUIT || (global_ev.type == SDL_KEYDOWN && global_ev.key.keysym.sym == SDLK_e)){
+        if(global_ev.type == SDL_QUIT){
             close = true;
             throw exception();
         }
@@ -495,12 +495,6 @@ void executeCommand() {
 
                 else if(ev.type == SDL_KEYDOWN){
                     switch(ev.key.keysym.sym){
-                        case(SDLK_e):
-                            close = true;
-                            finished = false;
-
-                            cout << endl << "Exiting Sorting Algorithm Visualizer" << endl;
-                            break;
                         
                         case(SDLK_0):
                             generateArray();
@@ -529,11 +523,15 @@ void executeCommand() {
 
                             finished = true;
 
-                            if(!close) cout << "Bubble Sort Completed" << endl;
-                            cout << "Time taken: " << (double)(end-start) << endl;
-                            cout << "Total comparisons: " << moves << endl;
+                            if(!close) 
+                            {
+                                cout << "Bubble Sort Completed" << endl;
+                                cout << "Time taken: " << (double)(end-start) << "s" << endl;
+                                cout << "Total comparisons: " << moves << endl;
 
-                            showSortedArray();
+                                showSortedArray();
+                            }
+                            
                             break;  
                         case(SDLK_2):
                             loadArray();
@@ -554,11 +552,15 @@ void executeCommand() {
 
                             finished = true;
 
-                            if(!close) cout << "Insertion Sort Completed" << endl;
-                            cout << "Time taken: " << (double)(end-start) << endl;
-                            cout << "Total comparisons: " << moves << endl;
+                            if(!close) 
+                            {
+                                cout << "Insertion Sort Completed" << endl;
+                                cout << "Time taken: " << (double)(end-start) << "s" << endl;
+                                cout << "Total comparisons: " << moves << endl;
 
-                            showSortedArray();
+                                showSortedArray();
+                            }
+                            
                             break;
 
                         case(SDLK_3):
@@ -580,11 +582,15 @@ void executeCommand() {
 
                             finished = true;
 
-                            if(!close) cout << "Selection Sort Completed" << endl;
-                            cout << "Time taken: " << (double)(end-start) << endl;
-                            cout << "Total comparisons: " << moves << endl;
+                            if(!close) 
+                            {
+                                cout << "Selection Sort Completed" << endl;
+                                cout << "Time taken: " << (double)(end-start) << "s" << endl;
+                                cout << "Total comparisons: " << moves << endl;
 
-                            showSortedArray();
+                                showSortedArray();
+                            }
+                            
                             break;
                         
                         case(SDLK_4):
@@ -606,11 +612,15 @@ void executeCommand() {
 
                             finished = true;
 
-                            if(!close) cout << "Merge Sort Completed" << endl;
-                            cout << "Time taken: " << (double)(end-start) << endl;
-                            cout << "Total comparisons: " << moves << endl;
+                            if(!close) 
+                            {
+                                cout << "Merge Sort Completed" << endl;
+                                cout << "Time taken: " << (double)(end-start) << "s" << endl;
+                                cout << "Total comparisons: " << moves << endl;
 
-                            showSortedArray();
+                                showSortedArray();
+                            }
+                            
                             break;
                         
                         case(SDLK_5):
@@ -632,11 +642,17 @@ void executeCommand() {
 
                             finished = true;
 
-                            if(!close) cout << "Quick Sort Completed" << endl;
-                            cout << "Time taken: " << (double)(end-start) << endl;
-                            cout << "Total comparisons: " << moves << endl;
+                            if(!close) 
+                            {
+                                cout << "Quick Sort Completed" << endl;
+                                cout << "Time taken: " << (double)(end-start) << "s" << endl;
+                                cout << "Total comparisons: " << moves << endl;
+                                
+                                showSortedArray();
+                            }
+                            
 
-                            showSortedArray();
+                            
                             break;
 
                         case(SDLK_6):
@@ -658,11 +674,15 @@ void executeCommand() {
 
                             finished = true;
 
-                            if(!close) cout << "Heap Sort Completed" << endl;
-                            cout << "Time taken: " << (double)(end-start) << endl;
-                            cout << "Total comparisons: " << moves << endl;
+                            if(!close) 
+                            {
+                                cout << "Heap Sort Completed" << endl;
+                                cout << "Time taken: " << (double)(end-start) << "s" << endl;
+                                cout << "Total comparisons: " << moves << endl;
 
-                            showSortedArray();
+                                showSortedArray();
+                            }
+                            
                             break;
                         
                         case(SDLK_7):
@@ -683,11 +703,15 @@ void executeCommand() {
 
                             finished=true;
 
-                            if(!close) cout << "Counting Sort Completed" << endl;
-                            cout << "Time taken: " << (double)(end-start) << endl;
-                            cout<< "Total Comparisons: No comparisons required" << endl;
+                            if(!close) 
+                            {
+                                cout << "Counting Sort Completed" << endl;
+                                cout << "Time taken: " << (double)(end-start) << "s" << endl;
+                                cout<< "Total Comparisons: No comparisons required" << endl;
                             
-                            showSortedArray();
+                                showSortedArray();
+                            }
+                            
                             break;
 
                         case(SDLK_8):
@@ -709,11 +733,15 @@ void executeCommand() {
 
                             finished = true;
 
-                            if(!close) cout << "Shell Sort Completed" << endl;
-                            cout << "Time taken: " << (double)(end - start) << endl;
-                            cout << "Total Comparisons: " << moves << endl;
+                            if(!close) 
+                            {
+                                cout << "Shell Sort Completed" << endl;
+                                cout << "Time taken: " << (double)(end - start) << "s" << endl;
+                                cout << "Total Comparisons: " << moves << endl;
 
-                            showSortedArray();
+                                showSortedArray();
+                            }
+                            
                             break; 
                     }
                 }
@@ -751,7 +779,6 @@ bool controlGuide(){
     cout << " 6 for Heap Sort" << endl;
     cout << " 7 for Counting Sort" << endl;
     cout << " 8 for Shell Sort" << endl;
-    cout << endl << "Press e to exit the visualizer" << endl;
     
 
     string s;
