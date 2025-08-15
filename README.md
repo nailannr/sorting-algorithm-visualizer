@@ -72,6 +72,7 @@ Once inside the visualizer:
 - After sorting process completes, all the borders turn *Dark Green*
 ![Completed](assets/finished.png)
 - The terminal outputs the unsorted array, the algorithm used, total time taken by the algorithm(*with a delay of 150ms between each render*), total comparisons, and the sorted array.
+![Metadata](assets/metadata.png)
 - Press **Exit** to exit the visualizer or you can carry on visualizing different algorithms following the *User Guide*
 
 ## How It Works
