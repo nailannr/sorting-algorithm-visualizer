@@ -65,8 +65,14 @@ Press Enter to continue or -1 to exit the program:
 Once inside the visualizer:
 - Follow any on-screen instructions to select or observe sorting algorithms.
 ![User Manual](assets/user-manual.png)
-- The program will display the sorting process step-by-step, allowing you to analyze how the algorithm works.
-- Use keyboard input as prompted to interact with the application or exit when finished.
+- Pressing **Enter** will open the visualizer window
+![Visualizer Window](assets/visualizer.png)
+- Choose any instructions per the *User Guide* to start that particular sorting algorithm. The *Green bar* and *Lavendar bar* indicates the number that is being compared in that particular render.
+![Comparison Process](assets/comparer.png)
+- After sorting process completes, all the borders turn *Dark Green*
+![Completed](assets/finished.png)
+- The terminal outputs the unsorted array, the algorithm used, total time taken by the algorithm(*with a delay of 150ms between each render*), total comparisons, and the sorted array.
+- Press **Exit** to exit the visualizer or you can carry on visualizing different algorithms following the *User Guide*
 
 ## How It Works
 - The application uses SDL2 to create a graphical window.
