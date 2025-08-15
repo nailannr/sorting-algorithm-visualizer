@@ -52,7 +52,7 @@ src/
    Or double-click `main.exe` in the file explorer.
 2. The application window will open, displaying the sorting visualization.
 
-## Demo: How to Use
+## How to Use
 When you start the program, you will see a welcome message:
 
 ```
