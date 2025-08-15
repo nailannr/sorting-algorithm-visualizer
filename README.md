@@ -1,6 +1,7 @@
 # Sorting Algorithm Visualizer
 
-This project is a C++ application that visually demonstrates the operation of various sorting algorithms using the SDL2 library. It is designed to help users understand how sorting algorithms work by providing a graphical representation of the sorting process.
+This project is a C++ application that brings sorting algorithms to life using the SDL2 library.
+Built for our **CSE-150** course, it transforms abstract code into colorful, dynamic visuals, making it easier to see and understand how different sorting algorithms work step-by-step. Whether you’re learning the basics or just curious about algorithm behavior, this tool turns theory into an interactive experience.
 
 ## Features
 - Visualizes sorting algorithms step-by-step
@@ -92,4 +93,4 @@ Note: The project uses SDL2, which is licensed separately. Please refer to the S
 
 ## Credits
 - SDL2: [https://www.libsdl.org/](https://www.libsdl.org/)
-- Developed by nailannr
+- Developed by [Muntasir Mamun](https://github.com/CharlieBrown110), [Naila Nausheen Rahman](https://github.com/nailannr) and Yarus Hossain Rafi
